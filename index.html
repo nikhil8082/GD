@@ -36,7 +36,7 @@
       min-height: calc(100 * min(var(--vh, 1vh), 1vh));
       padding: 2rem;
       text-align: center;
-      background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.96), rgba(238,229,251,.94) 58%, rgba(213,193,240,.98));
+      background: radial-gradient(circle at 50% 35%, #ffffff 0%, #f4edfc 58%, #dfccef 100%);
       transition: opacity .65s ease, visibility .65s ease;
     }
 
@@ -83,8 +83,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      z-index: -1;
-      background: linear-gradient(135deg, rgba(245, 238, 255, 0.82), rgba(225, 210, 250, 0.68));
+      z-index: 1;
+      background: linear-gradient(135deg, rgba(245, 238, 255, 0.9), rgba(225, 210, 250, 0.78));
       pointer-events: none;
     }
 
@@ -94,7 +94,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -2;
+      z-index: 0;
       filter: saturate(0.78) brightness(1.08);
       transform: scale(1.04);
     }
@@ -427,12 +427,12 @@
   <main class="romance-stage flex min-h-screen w-full flex-col items-center justify-center px-5 py-8">
    <img data-template-id="background-photo" loading="eager" class="canva-image background-photo">
    <div class="grain"></div>
-   <header class="intro mb-1 max-w-xl text-center">
+   <header class="intro relative z-[2] mb-1 max-w-xl text-center">
     <p data-template-id="eyebrow-text" class="canva-text mb-2 font-semibold uppercase tracking-[0.28em]">Happy Girlfriend Day</p>
     <h1 data-template-id="page-title" class="canva-text mb-3">A little letter for Tanu</h1>
     <p data-template-id="intro-text" class="canva-text mx-auto max-w-md">Tap the envelope — there is a pocketful of love waiting inside.</p>
    </header>
-   <section class="relative w-full" aria-label="A love letter">
+   <section class="relative z-[2] w-full" aria-label="A love letter">
     <div id="letterScene" class="letter-scene">
      <button id="envelopeButton" class="envelope-trigger" type="button" aria-expanded="false" aria-controls="loveLetter"> <span class="sr-only">Open the love letter</span> </button>
      <div class="envelope-base" aria-hidden="true">
