@@ -363,6 +363,13 @@
       50% { transform: translateY(-8px) scale(1); }
     }
 
+    @keyframes rain-fall {
+      0% { opacity: 0; transform: translateY(calc(-8 * min(var(--vh, 1vh), 1vh))) rotate(-3deg); }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(calc(118 * min(var(--vh, 1vh), 1vh))) rotate(3deg); }
+    }
+
     @keyframes envelope-breathe {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
@@ -383,9 +390,34 @@
         height: 430px;
       }
 
-      .floating-notes { display: none; }
+      .floating-notes {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+        pointer-events: none;
+        overflow: hidden;
+      }
 
-      .letter-paper {
+      .floating-notes .floating-note,
+      .letter-scene.is-open ~ .floating-notes .floating-note {
+        top: -12% !important;
+        right: auto !important;
+        left: auto !important;
+        opacity: 0;
+        animation: rain-fall 8s linear infinite;
+      }
+
+      .floating-notes .note-1 { left: 4% !important; animation-delay: .2s; }
+      .floating-notes .note-2 { left: 61% !important; animation-delay: 2.1s; }
+      .floating-notes .note-3 { left: 25% !important; animation-delay: 3.8s; }
+      .floating-notes .note-4 { left: 76% !important; animation-delay: 5.2s; }
+      .floating-notes .note-5 { left: 42% !important; animation-delay: 1.2s; }
+      .floating-notes .note-6 { left: 12% !important; animation-delay: 6.1s; }
+      .floating-notes .note-7 { left: 83% !important; animation-delay: 4.4s; }
+      .floating-notes .note-8 { left: 48% !important; animation-delay: 6.8s; }
+
+      .letter-paper { 
         bottom: 58px;
         min-height: 210px;
       }
@@ -445,8 +477,7 @@
     <p data-template-id="welcome-copy" id="welcomeCopy" class="canva-text mx-auto max-w-sm">Tap the heart to open a little letter made just for you.</p><button data-template-id="welcome-button" id="welcomeButton" class="canva-button welcome-heart" type="button" aria-label="Enter the love letter"><i data-lucide="heart"></i></button>
    </div>
   </div>
-  <main class="romance-stage flex min-h-screen w-full flex-col items-center justify-center px-5 py-8">
-   <img data-template-id="background-photo" loading="eager" class="canva-image background-photo">
+  <main class="romance-stage flex min-h-screen w-full flex-col items-center justify-center px-5 py-8"><img data-template-id="background-photo" loading="eager" class="canva-image background-photo">
    <div class="grain"></div>
    <header class="intro relative z-[2] mb-1 max-w-xl text-center">
     <p data-template-id="eyebrow-text" class="canva-text mb-2 font-semibold uppercase tracking-[0.28em]">Happy Girlfriend Day</p>
@@ -454,14 +485,12 @@
     <p data-template-id="intro-text" class="canva-text mx-auto max-w-md">Tap the envelope — there is a pocketful of love waiting inside.</p>
    </header>
    <section class="relative z-[2] w-full" aria-label="A love letter">
-    <div id="letterScene" class="letter-scene">
-     <button id="envelopeButton" class="envelope-trigger" type="button" aria-expanded="false" aria-controls="loveLetter"> <span class="sr-only">Open the love letter</span> </button>
+    <div id="letterScene" class="letter-scene"><button id="envelopeButton" class="envelope-trigger" type="button" aria-expanded="false" aria-controls="loveLetter"> <span class="sr-only">Open the love letter</span> </button>
      <div class="envelope-base" aria-hidden="true">
       <div class="envelope-seam"></div>
      </div>
      <div class="envelope-flap" aria-hidden="true"></div>
-     <div class="wax-seal" aria-hidden="true">
-      <i data-lucide="heart"></i>
+     <div class="wax-seal" aria-hidden="true"><i data-lucide="heart"></i>
      </div>
      <article id="loveLetter" class="letter-paper" aria-live="polite">
       <p class="heart-divider mb-3" aria-hidden="true">♥ ♥ ♥</p>
@@ -471,25 +500,32 @@
      </article>
     </div>
     <aside class="floating-notes" aria-label="Love notes">
-     <div data-template-id="love-note-1" class="canva-tag floating-note note-1"><i data-lucide="heart"></i><span>My favourite person</span>
+     <div data-template-id="love-note-1" class="canva-tag floating-note note-1">
+      <i data-lucide="heart"></i><span>My favourite person</span>
      </div>
-     <div data-template-id="love-note-2" class="canva-tag floating-note note-2"><i data-lucide="sparkles"></i><span>You make life brighter</span>
+     <div data-template-id="love-note-2" class="canva-tag floating-note note-2">
+      <i data-lucide="sparkles"></i><span>You make life brighter</span>
      </div>
-     <div data-template-id="love-note-3" class="canva-tag floating-note note-3"><i data-lucide="heart"></i><span>Always you</span>
+     <div data-template-id="love-note-3" class="canva-tag floating-note note-3">
+      <i data-lucide="heart"></i><span>Always you</span>
      </div>
-     <div data-template-id="love-note-4" class="canva-tag floating-note note-4"><i data-lucide="smile"></i><span>My happy place</span>
+     <div data-template-id="love-note-4" class="canva-tag floating-note note-4">
+      <i data-lucide="smile"></i><span>My happy place</span>
      </div>
-     <div data-template-id="love-note-5" class="canva-tag floating-note note-5"><i data-lucide="star"></i><span>Love you endlessly</span>
+     <div data-template-id="love-note-5" class="canva-tag floating-note note-5">
+      <i data-lucide="star"></i><span>Love you endlessly</span>
      </div>
-     <div data-template-id="love-note-6" class="canva-tag floating-note note-6"><i data-lucide="heart"></i><span>Lucky to have you</span>
+     <div data-template-id="love-note-6" class="canva-tag floating-note note-6">
+      <i data-lucide="heart"></i><span>Lucky to have you</span>
      </div>
-     <div data-template-id="love-note-7" class="canva-tag floating-note note-7"><i data-lucide="flower-2"></i><span>You are magic</span>
+     <div data-template-id="love-note-7" class="canva-tag floating-note note-7">
+      <i data-lucide="flower-2"></i><span>You are magic</span>
      </div>
-     <div data-template-id="love-note-8" class="canva-tag floating-note note-8"><i data-lucide="heart-handshake"></i><span>Forever grateful</span>
+     <div data-template-id="love-note-8" class="canva-tag floating-note note-8">
+      <i data-lucide="heart-handshake"></i><span>Forever grateful</span>
      </div>
     </aside>
-    <div class="reset-wrap mt-1 text-center">
-     <button id="resetButton" data-template-id="reset-button" class="canva-button reset-button inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2" type="button"> <i data-lucide="rotate-ccw" class="h-4 w-4"></i> <span>Close letter</span> </button>
+    <div class="reset-wrap mt-1 text-center"><button id="resetButton" data-template-id="reset-button" class="canva-button reset-button inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-sm transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2" type="button"> <i data-lucide="rotate-ccw" class="h-4 w-4"></i> <span>Close letter</span> </button>
     </div>
    </section>
   </main>
